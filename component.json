@@ -1,0 +1,135 @@
+{
+    "title": "ApiManagementClient",
+    "description": "Use these REST APIs for performing operations on Backend entity in Azure API Management deployment. The Backend entity in API Management represents a backend service that is configured to skip certification chain validation when using a self-signed certificate to test mutual certificate authentication.",
+    "docsUrl": "",
+    "url": "https://api.apis.guru/v2/specs/azure.com/apimanagement-apimbackends/2016-10-10/swagger.json",
+    "envVars": {
+        "OAUTH_CLIENT_ID": {
+            "description": "OAuth Client ID"
+        },
+        "OAUTH_CLIENT_SECRET": {
+            "description": "OAuth Client Secret"
+        }
+    },
+    "credentials": {
+        "fields": {
+            "server": {
+                "label": "Server",
+                "viewClass": "SelectView",
+                "model": [
+                    "https://management.azure.com/",
+                    "--- Custom URL"
+                ],
+                "required": true
+            },
+            "otherServer": {
+                "label": "Custom Server URL",
+                "viewClass": "TextFieldView"
+            },
+            "azure_auth": {
+                "label": "Azure Active Directory OAuth2 Flow.",
+                "viewClass": "OAuthFieldView"
+            }
+        },
+        "oauth2": {
+            "client_id": "{{OAUTH_CLIENT_ID}}",
+            "client_secret": "{{OAUTH_CLIENT_SECRET}}",
+            "auth_uri": "https://login.microsoftonline.com/common/oauth2/authorize"
+        }
+    },
+    "triggers": {
+        "startFlow": {
+            "main": "./lib/triggers/startFlow.js",
+            "type": "polling",
+            "title": "Start Flow",
+            "fields": {}
+        }
+    },
+    "actions": {
+        "Backends_ListByService": {
+            "main": "./lib/actions/Backends_ListByService.js",
+            "title": "Lists a collection of backends in the specified service instance.",
+            "description": "Lists a collection of backends in the specified service instance.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Backends_ListByService.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Backends_Delete": {
+            "main": "./lib/actions/Backends_Delete.js",
+            "title": "Deletes the specified backend.",
+            "description": "Deletes the specified backend.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Backends_Delete.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Backends_Get": {
+            "main": "./lib/actions/Backends_Get.js",
+            "title": "Gets the details of the backend specified by its identifier.",
+            "description": "Gets the details of the backend specified by its identifier.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Backends_Get.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Backends_Update": {
+            "main": "./lib/actions/Backends_Update.js",
+            "title": "Updates an existing backend.",
+            "description": "Updates an existing backend.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Backends_Update.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        },
+        "Backends_CreateOrUpdate": {
+            "main": "./lib/actions/Backends_CreateOrUpdate.js",
+            "title": "Creates or Updates a backend.",
+            "description": "Creates or Updates a backend.",
+            "fields": {
+                "verbose": {
+                    "viewClass": "CheckBoxView",
+                    "label": "Debug this step (log more data)"
+                }
+            },
+            "metadata": {
+                "in": "./lib/schemas/Backends_CreateOrUpdate.in.json",
+                "out": {
+                    "type": "object"
+                }
+            }
+        }
+    }
+}

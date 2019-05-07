@@ -1,0 +1,188 @@
+{
+    "type": "object",
+    "properties": {
+        "resourceGroupName": {
+            "required": true,
+            "type": "string"
+        },
+        "serviceName": {
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 50,
+            "pattern": "^[a-zA-Z](?:[a-zA-Z0-9-]*[a-zA-Z0-9])?$"
+        },
+        "backendid": {
+            "required": true,
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 255,
+            "pattern": "^[^*#&+:<>?]+$"
+        },
+        "subscriptionId": {
+            "required": true,
+            "type": "string"
+        },
+        "requestBody": {
+            "allOf": [
+                {
+                    "allOf": [
+                        {
+                            "allOf": [
+                                {
+                                    "description": "Authorization header information.",
+                                    "properties": {
+                                        "parameter": {
+                                            "description": "Authentication Parameter value.",
+                                            "maxLength": 300,
+                                            "minLength": 1,
+                                            "type": "string"
+                                        },
+                                        "scheme": {
+                                            "description": "Authentication Scheme name.",
+                                            "maxLength": 100,
+                                            "minLength": 1,
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "scheme",
+                                        "parameter"
+                                    ],
+                                    "type": "object"
+                                }
+                            ],
+                            "description": "Details of the Credentials used to connect to Backend.",
+                            "properties": {
+                                "certificate": {
+                                    "description": "List of Client Certificate Thumbprint.",
+                                    "items": {
+                                        "type": "string"
+                                    },
+                                    "maxItems": 32,
+                                    "type": "array"
+                                },
+                                "header": {
+                                    "additionalProperties": {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "description": "Header Parameter description.",
+                                    "type": "object"
+                                },
+                                "query": {
+                                    "additionalProperties": {
+                                        "items": {
+                                            "type": "string"
+                                        },
+                                        "type": "array"
+                                    },
+                                    "description": "Query Parameter description.",
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        {
+                            "description": "Details of the Backend WebProxy Server to use in the Request to Backend.",
+                            "externalDocs": {
+                                "description": "Backend entity uses these details to connect to a WebProxy.",
+                                "url": "https://msdn.microsoft.com/en-us/library/system.net.webproxy(v=vs.110).aspx"
+                            },
+                            "properties": {
+                                "password": {
+                                    "description": "Password to connect to the WebProxy Server",
+                                    "type": "string"
+                                },
+                                "url": {
+                                    "description": "WebProxy Server AbsoluteUri property which includes the entire URI stored in the Uri instance, including all fragments and query strings.",
+                                    "maxLength": 2000,
+                                    "minLength": 1,
+                                    "type": "string"
+                                },
+                                "username": {
+                                    "description": "Username to connect to the WebProxy server",
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "url"
+                            ],
+                            "type": "object"
+                        }
+                    ],
+                    "description": "Backend entity base Parameter set.",
+                    "properties": {
+                        "description": {
+                            "description": "Backend Description.",
+                            "maxLength": 2000,
+                            "minLength": 1,
+                            "type": "string"
+                        },
+                        "properties": {
+                            "x-ms-client-flatten": true,
+                            "description": "Properties specific to a Backend.",
+                            "properties": {
+                                "skipCertificateChainValidation": {
+                                    "default": false,
+                                    "description": "Flag indicating whether SSL certificate chain validation should be skipped when using self-signed certificates for this backend host.",
+                                    "type": "boolean"
+                                },
+                                "skipCertificateNameValidation": {
+                                    "default": false,
+                                    "description": "Flag indicating whether SSL certificate name validation should be skipped when using self-signed certificates for this backend host.",
+                                    "type": "boolean"
+                                }
+                            }
+                        },
+                        "resourceId": {
+                            "description": "Management Uri of the Resource in External System. This url can be the Arm Resource Id of Logic Apps, Function Apps or Api Apps.",
+                            "maxLength": 2000,
+                            "minLength": 1,
+                            "type": "string"
+                        },
+                        "title": {
+                            "description": "Backend Title.",
+                            "maxLength": 300,
+                            "minLength": 1,
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                }
+            ],
+            "description": "Parameters supplied to the Update Backend operation.",
+            "properties": {
+                "protocol": {
+                    "description": "Backend communication protocol.",
+                    "enum": [
+                        "http",
+                        "soap"
+                    ],
+                    "type": "string",
+                    "x-ms-enum": {
+                        "modelAsString": true,
+                        "name": "BackendProtocol"
+                    }
+                },
+                "url": {
+                    "description": "Runtime Url of the Backend.",
+                    "maxLength": 2000,
+                    "minLength": 1,
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "If_Match": {
+            "required": true,
+            "type": "string"
+        },
+        "api_version": {
+            "required": true,
+            "type": "string"
+        }
+    }
+}
